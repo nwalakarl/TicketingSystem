@@ -44,15 +44,15 @@ foreach (var item in events)
 - Although this depends on requirements, for a scenario where John Smith's city does not have an Event, top affordable events should be listed.
 4.	**Do you believe there is a way to improve the code you first wrote?** 
 The code can be improved by any of the following:
-- By adding a `Price` field to the `Event` class and reduce the overhead of computing it each time the email is sent.
+- By adding a `Price` field to the `Event` class and reducing the overhead of computing it each time the email is sent.
 - By adding a `Location` class and having Location Properties replace City in both `Customer` and `Event` classes. The `Location` class will include coordinates (`x` and `y`) and a function for computing the Manhattan distance between the Customer's city and the Event's city.
-- This will serve as a more realitic solution for developing the above system.
+- This will serve as a more realistic solution for developing the above system.
 
 B. **Write a code to add the 5 closest events to the customer's location to the email.**
 1.	**What should be your approach to getting the distance between the customer’s city and the other cities on the list?**
 Two options were considered here:
 - To define a 2-dimensional grid (e.g. 100 x 100) and use Pythagorean Theorem to compute the distance between City A and City B. The events are randomly placed on the grid (then transforming the x, y coordinates to fit within the 100 x 100 grid). With a larger grid size, this would be a more realistic approach.
-- To use a 1-Dimensional space, where distances are directly computed using the character-length of the `City` and `Name` of the events. This appeard to be a more straightforward approach for the scale of this project.
+- To use a 1-Dimensional space, where distances are directly computed using the character-length of the `City` and `Name` of the events. This appears to be a more straightforward approach for the scale of this project.
 
 2.	**How would you get the 5 closest events and how would you send them to the client in an email?**
 To iterate through the events using the `PriorityQueue` data structure (Dictionary without the values), using the distance as the Priority parameter and 'taking' the top 5 results.
@@ -105,7 +105,7 @@ try
         return CachedDistances[distanceCacheKey];
     }
 
-    return AlphebiticalDistance(fromCity, toCity);
+    return AlphabeticalDistance(fromCity, toCity);
 }
 catch (Exception)
 {
@@ -118,7 +118,7 @@ Code it. (Ask clarifying questions to be clear about what is expected business-w
 To ensure the process does not fail, we wrap the logic for computing distance in a `try-catch` and return 0 as the default. This allows us to still display the results to the Customers, but then sorted by `Price`.
 
 E. **If we also want to sort the resulting events by other fields like price, etc. to determine whichones to send to the customer, how would you implement it? Code it.**
-- We can add a `Price` field to Event class OR
+- We can add a `Price` field to the `Event` class OR
 - Write a Price Comparer which is passed to `Sort` method.
 ```C#
 class EventPriceComparer : IComparer<Event>
@@ -134,7 +134,7 @@ class EventPriceComparer : IComparer<Event>
     }
 }
 ```
-- The Comparer for sorting by distace uses the price as a fallback for situations where the distances are the same or events are in the same city
+- The Comparer for sorting by distance uses the price as a fallback for situations where the distances are the same or events are in the same city
 ```C#
 public class EventDistanceComparer:IComparer<Event>
 {
@@ -175,7 +175,7 @@ public class EventDistanceComparer:IComparer<Event>
 }
 ```
 F. **One of the questions is: how do you verify that what you’ve done is correct.**
-By using TDD. This approach is used for this task using `TicketingSystem` Project. More tests can be writen based on the requirments from the business.
+By using TDD. This approach is used for this task using `TicketingSystem` Project. More tests can be written based on the requirements from the business.
 
 
 
