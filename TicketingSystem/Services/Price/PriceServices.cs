@@ -12,7 +12,7 @@ namespace TicketingSystem.Services.Price
     {
         public static int GetPrice(Event e)
         {
-            return (SpatialServices.AlphebiticalDistance(e.City, "") + SpatialServices.AlphebiticalDistance(e.Name, "")) / 10;
+            return (SpatialServices.AlphabeticalDistance(e.City, "") + SpatialServices.AlphabeticalDistance(e.Name, "")) / 10;
         }
     }
 }

@@ -93,7 +93,7 @@ namespace TicketingSystem.Services.Spatial
                 }
 
 
-                return AlphebiticalDistance(fromCity, toCity);
+                return AlphabeticalDistance(fromCity, toCity);
             }
             catch (Exception)
             {
@@ -103,7 +103,7 @@ namespace TicketingSystem.Services.Spatial
             
         }
 
-        public static int AlphebiticalDistance(string s, string t)
+        public static int AlphabeticalDistance(string s, string t)
         {
             var result = 0;
             for (int i = 0; i < Math.Min(s.Length, t.Length); i++)
