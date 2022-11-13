@@ -1,5 +1,5 @@
 # Ticketing System
-Using C# .Net Application, to demonstrate the following:
+Using C# .Net 6.0 Application, to demonstrate the following:
 The scenario is that we have a website where we are selling tickets for live events and the specific business case here is that we want to do an email campaign.
 Therefore, we need to build a service (component) for this email campaign. What we want to do is to compose an email with the list of all the live events and send it to the customer.
 
