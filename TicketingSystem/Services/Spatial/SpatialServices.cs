@@ -80,7 +80,7 @@ namespace TicketingSystem.Services.Spatial
                     return 0;
                 }
 
-                if(fromCity == toCity)
+                if(fromCity.ToLower() == toCity.ToLower())
                 {
                     return 0;
                 }
