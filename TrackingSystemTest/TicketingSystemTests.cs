@@ -31,7 +31,7 @@ namespace TrackingSystemTest
             var events = DataServices.GetEvents();
 
             // Act
-            var eventsAtCity = SpatialServices.GetNClosestEvents(customer,events,5);
+            var eventsAtCity = SpatialServices.GetNClosestEvents(customer.City,events,5);
 
             // Assert
             double actual = 5;

@@ -12,7 +12,7 @@ namespace TicketingSystem.Services.Spatial
     public static class SpatialServices
     {
         private static Dictionary<string, int> CachedDistances = new Dictionary<string, int>();
-        public static List<Event> GetNClosestEvents(Customer customer, List<Event> events, int n = 5)
+        public static List<Event> GetNClosestEvents(string customerCity, List<Event> events, int n = 5)
         {
             List<Event> result = new List<Event>();
 
@@ -41,7 +41,7 @@ namespace TicketingSystem.Services.Spatial
 
             foreach (Event e in events)
             {
-                var distance = GetDistance(e.City, customer.City);
+                var distance = GetDistance(e.City, customerCity);
 
                 priorityQueue.Enqueue(e, distance);
             }
@@ -56,7 +56,7 @@ namespace TicketingSystem.Services.Spatial
                 count++;
             }           
 
-            result.Sort(new EventDistanceComparer(customer.City));
+            result.Sort(new EventDistanceComparer(customerCity));
 
             return result;
         }
