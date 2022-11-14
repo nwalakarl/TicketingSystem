@@ -51,7 +51,7 @@ The code can be improved by any of the following:
 B. **Write a code to add the 5 closest events to the customer's location to the email.**
 1.	**What should be your approach to getting the distance between the customer’s city and the other cities on the list?**
 Two options were considered here:
-- To define a 2-dimensional grid (e.g. 100 x 100) and use Pythagorean Theorem to compute the distance between City A and City B. The events are randomly placed on the grid (then transforming the x, y coordinates to fit within the 100 x 100 grid). With a larger grid size, this would be a more realistic approach.
+- To define a 2-dimensional grid (e.g. 100 x 100) and calculate the Manhattan distance between City A and City B. The events are randomly placed on the grid (then transforming the x, y coordinates to fit within the 100 x 100 grid). With a larger grid size, this would be a more realistic approach.
 - To use a 1-Dimensional space, where distances are directly computed using the character-length of the `City` and `Name` of the events. This appears to be a more straightforward approach for the scale of this project.
 
 2.	**How would you get the 5 closest events and how would you send them to the client in an email?**
