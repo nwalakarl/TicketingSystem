@@ -41,7 +41,7 @@ foreach (var item in events)
 ```
 3.	**What is the expected output if we only have the client John Smith?** 
 - If John Smith belongs to a city with an Event record, those cities will be listed and sorted by Price.
-- Although this depends on requirements, for a scenario where John Smith's city does not have an Event, top affordable events should be listed.
+- Although this depends on requirements, for a scenario where John Smith's city does not have an Event, top affordable events should be listed instead of the expected empty array.
 4.	**Do you believe there is a way to improve the code you first wrote?** 
 The code can be improved by any of the following:
 - By adding a `Price` field to the `Event` class and reducing the overhead of computing it each time the email is sent.
