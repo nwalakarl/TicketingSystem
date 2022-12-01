@@ -85,15 +85,23 @@ namespace TicketingSystem.Services.Spatial
                     return 0;
                 }
 
-                string distanceCacheKey = fromCity + toCity;
+                // Computes a bidirectional key for the cache.
+                string[] citiesArray = { fromCity, toCity };
+
+                Array.Sort(citiesArray, (x, y) => x.CompareTo(y));
+
+                string distanceCacheKey = String.Join('-', citiesArray);
 
                 if (CachedDistances.ContainsKey(distanceCacheKey))
                 {
                     return CachedDistances[distanceCacheKey];
                 }
 
+                int newDistance = AlphabeticalDistance(fromCity, toCity);
 
-                return AlphabeticalDistance(fromCity, toCity);
+                CachedDistances.Add(distanceCacheKey, newDistance);
+
+                return newDistance;
             }
             catch (Exception)
             {
