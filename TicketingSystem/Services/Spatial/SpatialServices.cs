@@ -60,7 +60,7 @@ namespace TicketingSystem.Services.Spatial
 
             return result;
         }
-        
+
         /*****************************************************************
          *  
          *  IMPROVED THE GetDistance Method by using a dictionary.
@@ -73,42 +73,56 @@ namespace TicketingSystem.Services.Spatial
 
         public static int GetDistance(string fromCity, string toCity)
         {
-            try
+            // Assuming Idempotent calls, retries for 404, timeouts, etc.
+            int numberOfTries = 5;
+
+
+            while (numberOfTries > 0)
             {
-                if (fromCity == null || toCity == null)
+                numberOfTries--;
+
+                try
                 {
-                    return 0;
+                    if (fromCity == null || toCity == null)
+                    {
+                        return 0;
+                    }
+
+                    if (fromCity.ToLower() == toCity.ToLower())
+                    {
+                        return 0;
+                    }
+
+                    // Computes a bidirectional key for the cache.
+                    string[] citiesArray = { fromCity, toCity };
+
+                    Array.Sort(citiesArray, (x, y) => x.CompareTo(y));
+
+                    string distanceCacheKey = String.Join('-', citiesArray);
+
+                    if (CachedDistances.ContainsKey(distanceCacheKey))
+                    {
+                        return CachedDistances[distanceCacheKey];
+                    }
+                    else
+                    {
+                        int computedDistance = AlphabeticalDistance(fromCity, toCity);
+                        CachedDistances.Add(distanceCacheKey, computedDistance);
+
+                        return computedDistance;
+                    }
+
+
+                }
+                catch (Exception)
+                {
+                    // Log exception
                 }
 
-                if(fromCity.ToLower() == toCity.ToLower())
-                {
-                    return 0;
-                }
-
-                // Computes a bidirectional key for the cache.
-                string[] citiesArray = { fromCity, toCity };
-
-                Array.Sort(citiesArray, (x, y) => x.CompareTo(y));
-
-                string distanceCacheKey = String.Join('-', citiesArray);
-
-                if (CachedDistances.ContainsKey(distanceCacheKey))
-                {
-                    return CachedDistances[distanceCacheKey];
-                }
-
-                int newDistance = AlphabeticalDistance(fromCity, toCity);
-
-                CachedDistances.Add(distanceCacheKey, newDistance);
-
-                return newDistance;
             }
-            catch (Exception)
-            {
-                // Returns a zero for the distance
-                return 0;
-            }
-            
+
+            return 0;
+
         }
 
         public static int AlphabeticalDistance(string s, string t)
